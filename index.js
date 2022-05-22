@@ -24,6 +24,23 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+app.get("/api/:year-:month-:day", function(req, res){
+  let year = parseInt(req.params.year);
+  let month = parseInt(req.params.month)-1;
+  let day = parseInt(req.params.day);
+  let date = new Date(year,month,day);
+  
+  res.json({unix: date.getTime(),
+           utc: date.toUTCString()});
+})
+
+app.get("/api/:unix", function(req, res){
+  let unix = parseInt(req.params.unix);
+  let date = new Date(unix);
+  
+  res.json({unix: date.getTime(),
+           utc: date.toUTCString()});
+})
 
 
 // listen for requests :)
